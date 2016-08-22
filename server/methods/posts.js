@@ -1,15 +1,19 @@
 import tumblr from 'tumblr.js';
-const { consumer_key: consumerKey, url: blogUrl } = Meteor.settings.credentials.tumblr;
-const client = tumblr.createClient({ consumer_key: consumerKey });
+const { consumer_key,
+  url: blogUrl,
+  consumer_secret,
+  token,
+  token_secret, } = Meteor.settings.credentials.tumblr;
+const client = tumblr.createClient({ consumer_key, consumer_secret, token, token_secret });
 const Future = require('fibers/future');
 
 Meteor.methods({
 
-  getPosts(n=1) {
+  GetDrafts(n=1, lastId=0) {
     this.unblock();
     const future = new Future();
     let data = {};
-    client.blogPosts(blogUrl, (err, res) => {
+    client.blogDrafts(blogUrl,  { filter: 'html', limit: n, before_id: lastId }, (err, res) => {
       if (err) {
         future.throw(err);
       } else {
@@ -21,7 +25,7 @@ Meteor.methods({
     return data;
   },
 
-  getInfo() {
+  GetInfo() {
     this.unblock();
     const future = new Future();
     let data = {};
