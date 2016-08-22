@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'react-mounter';
 import MainLayout from '../index.jsx';
 import WelcomeComponent from '../views/home.jsx';
+import Blog from '../views/Blog/index.jsx';
 
 // Home page
 
@@ -28,7 +29,7 @@ FlowRouter.route('/artigos', {
   action() {
     mount(MainLayout, {
       tab: 'blog',
-      content: <WelcomeComponent name="Arunoda" />,
+      content: <Blog />,
     });
   },
 
@@ -38,7 +39,7 @@ FlowRouter.route('/artigos', {
 // Location
 
 FlowRouter.route('/localizacao', {
-  action() {
+  action(query) {
     mount(MainLayout, {
       tab: 'location',
       content: <WelcomeComponent name="Arunoda" />,
