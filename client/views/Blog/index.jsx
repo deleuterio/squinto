@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './Card.jsx';
+import Post from './Post/index.jsx';
 import { Snackbar, CircularProgress,  LinearProgress, RaisedButton } from 'material-ui';
 
 const Blog = React.createClass({
@@ -34,7 +35,7 @@ const Blog = React.createClass({
   //  Initial state
 
   getInitialState() {
-    return { posts: null, errorOpen: false, total: null, wait: false };
+    return { posts: null, errorOpen: false, total: null, wait: false, postId: null };
   },
 
   // Lifecycle
@@ -55,6 +56,14 @@ const Blog = React.createClass({
     this.setState({ errorOpen: true });
   },
 
+  handlePostView(postId) {
+    this.setState({ postId });
+  },
+
+  handlePostClose() {
+    this.setState({ postId: null });
+  },
+
   // Util
 
   getPosts() {
@@ -63,7 +72,7 @@ const Blog = React.createClass({
     Meteor.call('GetDrafts', this.postPerPage, _.get(_.last(posts), 'id'), (err, drafts) => {
       if (err) {
         this.setState({ errorOpen: true });
-
+        FlowRouter.go('Home');
         // console.log(err);
       } else {
         this.setState({ posts: _.union(posts, drafts.posts), wait: false });
@@ -78,10 +87,10 @@ const Blog = React.createClass({
   },
 
   getInfo() {
-    Meteor.call('GetInfo', (err, { blog: { drafts } }) => {
+    Meteor.call('GetInfo', (err, { blog: { drafts }={} }) => {
       if (err) {
         this.setState({ errorOpen: true });
-
+        FlowRouter.go('Home');
         // console.log(err);
       } else {
         this.setState({ total: drafts });
@@ -90,7 +99,7 @@ const Blog = React.createClass({
   },
 
   render() {
-    const { posts, errorOpen, total, wait } = this.state;
+    const { posts, errorOpen, total, wait, postId } = this.state;
     const { styles } = this;
     return (<div>
       {_.isNull(posts) && _.isNull(total) ? <LinearProgress mode='indeterminate' /> :
@@ -99,7 +108,7 @@ const Blog = React.createClass({
             {total == 0 ? styles.centerCell(<h4>Nenhuma artigo publicado...</h4>) :
             _.map(posts, p =>
               <div {...styles.cell} key={_.get(p, 'id')}>
-                <Card {...p}/>
+                <Card {...p} action={this.handlePostView}/>
               </div>
             )}
             {wait ? this.styles.centerCell(<CircularProgress size={1.5} />) :
@@ -107,6 +116,7 @@ const Blog = React.createClass({
             this.styles.centerCell(<RaisedButton {...styles.seeMore} onTouchTap={this.getPosts}/>)}
            </div>
         </div>}
+        <Post post={_.find(posts, { id: postId })} handleClose={this.handlePostClose} />
         <Snackbar
           open={errorOpen}
           message='Algo deu errado'

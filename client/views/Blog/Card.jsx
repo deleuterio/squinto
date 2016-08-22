@@ -9,18 +9,22 @@ import { Card,
 
 const BlogCard = React.createClass({
 
+  // Handlers
+
+  handlePost() {
+    const { action, id } = this.props;
+    action(id);
+  },
+
   // util
 
   extractImages(raw) {
-    return raw.match(/((http(|s):\/\/)?[^''=\n\r]+\.(jpg|png|jpeg|gif))/ig);
+    return _.map(raw.match(/((http(|s):\/\/)?[^''=\n\r]+\.(jpg|png|jpeg|gif))/ig),
+      p => p.replace('"', ''));
   },
 
   removeImages(raw) {
-    return raw.replace(/((http(|s):\/\/)?[^''=\n\r]+\.(jpg|png|jpeg|gif))/ig, '');
-  },
-
-  getContent(raw) {
-    return raw.split(/<img.+?src=[\'']([^\'']+)[\''].*>/g);
+    return raw.replace(/<img.+?>/g, '');
   },
 
   // render
@@ -36,6 +40,8 @@ const BlogCard = React.createClass({
       caption,
       type,
       summary, } = this.props;
+    const images = this.extractImages(body || '');
+    const content = this.removeImages(body || '');
     return (
       <Card style={{ height: '100%' }}>
         <CardTitle title={title || _.capitalize(type)}
@@ -46,20 +52,19 @@ const BlogCard = React.createClass({
           style={{ paddingTop: '5px' }} />
         {!body ? null :
           <CardText>
-            <div dangerouslySetInnerHTML={_.zipObject(['__html'],
-            [this.removeImages(body)])} />
+            <div dangerouslySetInnerHTML={_.zipObject(['__html'], [content])} />
           </CardText>}
         {!thumbnail ? null :
           <CardMedia
             overlay={!summary ? null : <CardTitle title={summary} />} >
             <img src={thumbnail} />
           </CardMedia>}
-        {!body || _.isEmpty(this.extractImages(body || '')) ? null :
+        {!body || _.isEmpty(images) ? null :
           <CardMedia>
-            <img src={_.head(this.extractImages(body))} />
+            <img src={_.head(images)} />
           </CardMedia>}
         <CardActions>
-          <FlatButton secondary={true} label='Ver' />
+          <FlatButton secondary={true} label='Ver' onTouchTap={this.handlePost}/>
         </CardActions>
       </Card>
     );
