@@ -1,3 +1,4 @@
+import 'material-design-lite/material.min.css';
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import muiTheme from './lib/theme/theme.jsx';
@@ -9,7 +10,11 @@ _ = lodash;
 const MainLayout = (content) => (
   <div>
     <header>
-      <title>Squinto</title>
+      <title>sQuinto - Advocacia empresarial</title>
+      <meta charSet='UTF-8' />
+      <meta name='description' content='sQuinto Advocacia Empresarial' />
+      <meta name='keywords' content='advocacia, empresarial, direito, jurídico' />
+      <meta name='content-language' content='pt-br' />
     </header>
     <MuiThemeProvider muiTheme={muiTheme}>
       <IndexBar {...content} />

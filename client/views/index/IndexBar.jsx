@@ -29,7 +29,11 @@ const IndexBar = React.createClass({
       boxShadow: 'none',
     },
     content: {
-      margin: '0.5em',
+      className: 'mdl-layout__content',
+      style: {
+        margin: '0.5em',
+        width: '100%',
+      },
     },
   },
 
@@ -49,7 +53,7 @@ const IndexBar = React.createClass({
             <IconButton onTouchTap={() => FlowRouter.go('Home')}>
               <NavigationHome />
             </IconButton>}
-          title={<span style={styles.title}>Squinto</span>}
+          title={<span style={styles.title}>sQuinto</span>}
         />
         <Tabs value={tab} onChange={this.handleTabChange}>
           {_.map(links, ({ label, icon }, k) =>
@@ -60,9 +64,9 @@ const IndexBar = React.createClass({
               label={label}
             />)}
         </Tabs>
-        <div style={styles.content}>
-        </div>
-        {content}
+        <main {...styles.content}>
+          {content}
+        </main>
       </div>
     );
   },
