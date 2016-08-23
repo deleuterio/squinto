@@ -29,19 +29,20 @@ const IndexBar = React.createClass({
     bar: {
       boxShadow: 'none',
     },
-    content: {
-      className: 'mdl-layout__content',
-      ref: 'newLink',
-      style: {
-        width: '100%',
-        minHeight: '392px',
-      },
-    },
+  },
+
+  getInitialState() {
+    return { windowHeight: window.innerHeight };
   },
 
   // lifecycle
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  },
+
   componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
     $(document).ready(() => {
       const LinkTest = {
         externalLinks() {
@@ -62,8 +63,22 @@ const IndexBar = React.createClass({
     FlowRouter.go(_.capitalize(key));
   },
 
+  handleResize(e) {
+    this.setState({ innerHeight: window.innerHeight });
+  },
+
+  // Handlers
+
   render() {
-    const { styles, links, props: { content, tab } } = this;
+    const { styles, links, props: { content, tab }, state: { innerHeight } } = this;
+    const styleContent = {
+      className: 'mdl-layout__content',
+      ref: 'newLink',
+      style: {
+        width: '100%',
+        minHeight: innerHeight - 241,
+      },
+    };
     return (
       <div>
         <AppBar
@@ -83,7 +98,7 @@ const IndexBar = React.createClass({
               label={label}
             />)}
         </Tabs>
-        <main {...styles.content}>
+        <main {...styleContent}>
           {content}
         </main>
         <Footer />
