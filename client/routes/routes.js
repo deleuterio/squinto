@@ -4,6 +4,7 @@ import MainLayout from '../index.jsx';
 import WelcomeComponent from '../views/home.jsx';
 import Blog from '../views/Blog/index.jsx';
 import Process from '../views/Process/index.jsx';
+import Location from '../views/Location/index.jsx';
 
 // Home page
 
@@ -43,7 +44,7 @@ FlowRouter.route('/localizacao', {
   action() {
     mount(MainLayout, {
       tab: 'location',
-      content: <WelcomeComponent name="Arunoda" />,
+      content: <Location />,
     });
   },
 

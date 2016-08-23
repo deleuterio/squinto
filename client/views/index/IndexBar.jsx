@@ -30,11 +30,28 @@ const IndexBar = React.createClass({
     },
     content: {
       className: 'mdl-layout__content',
+      ref: 'newLink',
       style: {
         margin: '0.5em',
         width: '100%',
       },
     },
+  },
+
+  // lifecycle
+
+  componentDidMount() {
+    $(document).ready(() => {
+      const LinkTest = {};
+
+      // External Links
+      LinkTest.externalLinks = function () {
+        $('a[href^=http]').click(function () {
+          window.open(this.href);
+          return false;
+        });
+      }();
+    });
   },
 
   // Handlers
