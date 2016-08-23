@@ -45,7 +45,7 @@ const Blog = React.createClass({
     this.getPosts();
   },
 
-  componentDidLeave() {
+  componentWillUnmount() {
     const { noReply } = this.refs;
     $(noReply).unbind('cut copy paste');
   },

@@ -5,7 +5,7 @@ import WelcomeComponent from '../views/home.jsx';
 import Home from '../views/Home/index.jsx';
 import Blog from '../views/Blog/index.jsx';
 import Process from '../views/Process/index.jsx';
-import Location from '../views/Location/index.jsx';
+import Contact from '../views/Contact/index.jsx';
 
 // Home page
 
@@ -41,15 +41,15 @@ FlowRouter.route('/artigos', {
 
 // Location
 
-FlowRouter.route('/localizacao', {
+FlowRouter.route('/Contato', {
   action() {
     mount(MainLayout, {
-      tab: 'location',
-      content: <Location />,
+      tab: 'contact',
+      content: <Contact />,
     });
   },
 
-  name: 'Location',
+  name: 'Contact',
 });
 
 // Process

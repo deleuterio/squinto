@@ -9,7 +9,7 @@ const Process = React.createClass({
   render() {
     return (<div>
       <div style={{
-        overflow: 'hidden', margin: '15px auto', 'max-width': '329px',
+        overflow: 'hidden', margin: '15px auto', 'maxWidth': '329px',
       }}>
         <iframe
           src='http://squinto.adv.br/'

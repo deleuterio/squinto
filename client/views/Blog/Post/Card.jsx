@@ -14,7 +14,7 @@ const BlogPostCard = React.createClass({
     });
   },
 
-  componentDidLeave() {
+  componentWillUnmount() {
     const { noReply } = this.refs;
     $(noReply).unbind('cut copy paste');
   },

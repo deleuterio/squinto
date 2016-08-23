@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardTitle, CardText, CardMedia, FontIcon, CardActions, FlatButton } from 'material-ui';
 
-const Location = React.createClass({
+const Contact = React.createClass({
 
   // Static data
 
@@ -55,4 +55,4 @@ const Location = React.createClass({
   },
 });
 
-export default Location;
+export default Contact;
