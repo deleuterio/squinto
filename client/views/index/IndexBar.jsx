@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Tabs, Tab, FontIcon, IconButton } from 'material-ui';
 import NavigationHome from 'material-ui/svg-icons/action/home';
+import Footer from './Footer.jsx';
 
 const IndexBar = React.createClass({
 
@@ -11,9 +12,9 @@ const IndexBar = React.createClass({
       label: 'Artigos',
       icon: 'dashboard',
     },
-    location: {
-      label: 'Localização',
-      icon: 'location_on',
+    contact: {
+      label: 'Contato',
+      icon: 'call',
     },
     process: {
       label: 'Processos',
@@ -32,8 +33,8 @@ const IndexBar = React.createClass({
       className: 'mdl-layout__content',
       ref: 'newLink',
       style: {
-        margin: '0.5em',
         width: '100%',
+        minHeight: '392px',
       },
     },
   },
@@ -42,15 +43,16 @@ const IndexBar = React.createClass({
 
   componentDidMount() {
     $(document).ready(() => {
-      const LinkTest = {};
+      const LinkTest = {
+        externalLinks() {
+          $('a[href^=http]').click(() => {
+            window.open(this.href);
+            return false;
+          });
+        },
+      };
 
-      // External Links
-      LinkTest.externalLinks = function () {
-        $('a[href^=http]').click(function () {
-          window.open(this.href);
-          return false;
-        });
-      }();
+      LinkTest.externalLinks();
     });
   },
 
@@ -84,6 +86,7 @@ const IndexBar = React.createClass({
         <main {...styles.content}>
           {content}
         </main>
+        <Footer />
       </div>
     );
   },
