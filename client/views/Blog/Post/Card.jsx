@@ -31,11 +31,11 @@ const BlogPostCard = React.createClass({
       },
     },
     iframe: {
-      frameborder: '0',
-      allowfullscreen: '',
+      frameBorder: '0',
+      allowFullScreen: '',
       style: {
-        width: '480',
-        height: '360',
+        width: '480px',
+        height: '360px',
       },
     },
   },

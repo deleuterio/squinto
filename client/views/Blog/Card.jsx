@@ -45,8 +45,8 @@ const BlogCard = React.createClass({
     return (
       <Card style={{ height: '100%' }}>
         <CardTitle title={title || _.capitalize(type)}
-        subtitle={_.join(tags, ', ')}
-        style={{ paddingBottom: '0px' }} />
+          subtitle={_.join(tags, ', ')}
+          style={{ paddingBottom: '0px' }} />
         <CardHeader
           title={`Publicação em ${moment(new Date(date)).format('DD/MM/YYYY')}`}
           style={{ paddingTop: '5px' }} />
