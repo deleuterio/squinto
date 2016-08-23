@@ -15,7 +15,7 @@ const IndexBar = React.createClass({
       label: 'Localização',
       icon: 'location_on',
     },
-    search: {
+    process: {
       label: 'Processos',
       icon: 'search',
     },

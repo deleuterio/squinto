@@ -3,6 +3,7 @@ import { mount } from 'react-mounter';
 import MainLayout from '../index.jsx';
 import WelcomeComponent from '../views/home.jsx';
 import Blog from '../views/Blog/index.jsx';
+import Process from '../views/Process/index.jsx';
 
 // Home page
 
@@ -39,7 +40,7 @@ FlowRouter.route('/artigos', {
 // Location
 
 FlowRouter.route('/localizacao', {
-  action(query) {
+  action() {
     mount(MainLayout, {
       tab: 'location',
       content: <WelcomeComponent name="Arunoda" />,
@@ -47,4 +48,17 @@ FlowRouter.route('/localizacao', {
   },
 
   name: 'Location',
+});
+
+// Process
+
+FlowRouter.route('/processos', {
+  action() {
+    mount(MainLayout, {
+      tab: 'process',
+      content: <Process />,
+    });
+  },
+
+  name: 'Process',
 });
