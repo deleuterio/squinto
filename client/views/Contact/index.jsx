@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardTitle, CardText, CardMedia, FontIcon, CardActions, FlatButton } from 'material-ui';
+import { Card, CardTitle, CardText, CardMedia, FontIcon, CardActions, FlatButton, Paper } from 'material-ui';
 
 const Contact = React.createClass({
 
@@ -9,8 +9,14 @@ const Contact = React.createClass({
     grid: {
       className: 'mdl-grid',
     },
-    cell: {
-      className: 'mdl-cell mdl-cell--12-col',
+    cellCard: {
+      className: 'mdl-cell mdl-cell--8-col mdl-cell--6-col-tablet mdl-cell--12-col-phone',
+    },
+    middleCard: {
+      style: {
+        width: 'auto',
+        backgroundColor: '#A7FFEB',
+      },
     },
     goMap: {
       secondary: true,
@@ -25,32 +31,65 @@ const Contact = React.createClass({
   render() {
     const { styles, mapUrl } = this;
     return (
-      <div {...styles.grid} >
-        <Card {...styles.cell} >
-          <CardTitle title='sQuinto Sociedade de Advogados' />
-          <CardText>
-            <p>Rua Ministro Orozimbo Nonato,	 102 -	 Edifício Icon- Bloco A, Conj. 2208 e 2210</p>
-            <p>Cidade: Nova Lima / MG</p>
-            <p>Bairro: Vila da Serra</p>
-            <p>CEP: 34000-000</p>
-            <p><FontIcon className='material-icons'>phone</FontIcon> +55 (31) 3286 7041</p>
-            <p><FontIcon className='material-icons'>contact_mail</FontIcon>
-              <a href='mailto:squinto@squinto.adv.br?Subject=Contato'
-                style={{ marginLeft: '10px' }} >
-              squinto@squinto.adv.br</a></p>
-            <p><FontIcon className='material-icons'>contact_mail</FontIcon>
-              <a href='mailto:diretoria@squinto.adv.br?Subject=Contato'
-                style={{ marginLeft: '10px' }} >
-              diretoria@squinto.adv.br</a></p>
-          </CardText>
-          <CardMedia >
-            <iframe src={mapUrl} frameBorder='0' style={{ heigth: '500px' }} allowFullScreen/>
-          </CardMedia>
-          <CardActions>
-            <FlatButton {...styles.goMap} />
-          </CardActions>
-        </Card>
-      </div>
+      <Paper zDepth={0} rounded={false} {...styles.middleCard}>
+        <div className='mdl-grid' >
+          <div className="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle	mdl-layout--small-screen-only">
+            <ul className="mdl-list">
+              <li className="mdl-list__item">
+                <button style={{ backgroundColor: '#FF9800' }}
+                  className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                <h2 className='mdl-card__title-text' style={{ fontSize: '25px' }}>Contato</h2>
+                </button>
+              </li>
+              <li className="mdl-list__item">
+                <span className="mdl-list__item-primary-content">
+                <i className="material-icons mdl-list__item-icon" style={{ color: '#00796b' }}>phone</i>
+                +55 (31) 3286-7041
+              </span>
+              </li>
+              <li className="mdl-list__item">
+                <span className="mdl-list__item-primary-content">
+                <i className="material-icons mdl-list__item-icon" style={{ color: '#00796b' }}>contact_mail</i>
+                <a href='mailto:squinto@squinto.adv.br?Subject=Contato'
+                  style={{ marginLeft: '10px' }} >
+                squinto@squinto.adv.br</a>
+              </span>
+              </li>
+              <li className="mdl-list__item">
+                <span className="mdl-list__item-primary-content">
+                <i className="material-icons mdl-list__item-icon" style={{ color: '#00796b' }}>contact_mail</i>
+                <a href='mailto:diretoria@squinto.adv.br?Subject=Contato'
+                  style={{ marginLeft: '10px' }} >
+                diretoria@squinto.adv.br</a>
+              </span>
+              </li>
+              <li className="mdl-list__item">
+                <span className="mdl-list__item-primary-content">
+                <i className="material-icons mdl-list__item-icon" style={{ color: '#00796b' }}>place</i>
+                Rua Ministro Orozimbo Nonato, 102 - Edifício Icon- Bloco A, Conj. 2208 e 2210
+              </span>
+              </li>
+            </ul>
+          </div>
+          <div className="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle	">
+            <Card>
+              {/* <CardText>
+                Rua Ministro Orozimbo Nonato, 102 - Edifício Icon- Bloco A, Conj. 2208 e 2210<br/>
+                Cidade: Nova Lima / MG<br/>
+                Bairro: Vila da Serra<br/>
+                CEP: 34000-000<br/>
+              </CardText> */}
+              <CardMedia >
+                <div dangerouslySetInnerHTML={_.zipObject(['__html'], ['<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14998.255057277041!2d-43.947147!3d-19.98484!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3860dab80e889cb2!2sCondom%C3%ADnio+Icon!5e0!3m2!1spt-BR!2sbr!4v1472219802068" height="400"  frameborder="0" style="border:0; width:100%" allowfullscreen></iframe>'])} />
+                {/* <iframe src={mapUrl} frameBorder='0' style={{ heigth: '500px' }} allowFullScreen/> */}
+              </CardMedia>
+              <CardActions>
+                <FlatButton {...styles.goMap} />
+              </CardActions>
+            </Card>
+          </div>
+        </div>
+      </Paper>
     );
   },
 });

@@ -1,11 +1,22 @@
 import React from 'react';
-import { List, ListItem, Subheader, Divider, FontIcon } from 'material-ui';
+import { List, ListItem, Divider, CardTitle, FontIcon, IconButton, Card,
+  CardMedia,
+  CardText,
+  GridList,
+  Subheader,
+  GridTile,
+  Paper,
+  Avatar, } from 'material-ui';
+import NavigationHome from 'material-ui/svg-icons/action/home';
+import Contact from '../Contact/index.jsx';
 
 const Home = React.createClass({
 
   // Static data
 
   styles: {
+    title: { cursor: 'pointer' },
+    bar: { position: 'fixed' },
     topCard: {
       className: 'mdl-typography--text-center',
       style: {
@@ -19,17 +30,18 @@ const Home = React.createClass({
     },
     topCardContent: {
       style: {
-        fontSize: '60px',
-        paddingTop: '60px',
+        marginTop: '170px',
+        fontSize: '20px',
         lineHeight: 1,
         color: '#FFF',
         fontWeight: 500,
       },
     },
     middleCard: {
-      className: 'mdl-card mdl-shadow--2dp',
+      className: 'mdl-card',
       style: {
         width: 'auto',
+        paddingBottom: '20px',
       },
     },
     middleCardTitle: {
@@ -41,9 +53,15 @@ const Home = React.createClass({
       },
     },
     cardWide: {
-      className: 'mdl-card mdl-shadow--2dp',
+      className: 'mdl-card',
       style: {
         width: 'auto',
+      },
+    },
+    cardWide1: {
+      style: {
+        width: 'auto',
+        background: '#00796B',
       },
     },
     secondaryTitle: {
@@ -52,26 +70,35 @@ const Home = React.createClass({
         fontSize: 'large',
       },
     },
+    grid: {
+      className: 'mdl-grid',
+      ref: 'noReply',
+    },
+    cell: {
+      className: 'mdl-cell mdl-cell--4-col mdl-cell--12-col-phone',
+    },
   },
 
   texts: {
     topCardText: 'sQuinto Advocacia Empresarial',
     block1: {
       title: 'A empresa',
-      text: 'Somos uma empresa de advocacia com atendimento personalizado e atuação em ' +
-        'todas as áreas do direito direcionado às empresas.',
+      text: 'Atendimento personalizado em todas as áreas do direito direcionado às empresas',
       contents: [
         {
           title: 'Valores',
           text: 'Confiabilidade, Responsabilidade e Ética.',
+          img: '/assets/puzzle1.png',
         }, {
           title: 'Objetivos',
           text: 'Desenvolver estratégias personalizadas de forma a promover o melhor ' +
             'aproveitamento na aplicação da legislação em favor do cliente.',
+          img: '/assets/puzzle2.png',
         }, {
           title: 'Visão',
           text: 'Consultoria e Assessoria Jurídica com excelência em conhecimento, ' +
             'aplicação e ética.',
+          img: '/assets/puzzle3.png',
         },
       ],
     },
@@ -155,42 +182,103 @@ const Home = React.createClass({
     },
   },
 
+  getInitialState() {
+    return { positions: {}, innerWidth: innerWidth < 840 ? '100%' : '70%' };
+  },
+
+  // lifecycle
+
+  componentWillUnmount() {
+    // window.removeEventListener('resize', this.handleResize);
+    // window.removeEventListener('resize', this.handleScroll);
+  },
+
+  componentDidMount() {
+    // window.addEventListener('resize', this.handleResize);
+    // window.addEventListener('scroll', this.handleScroll, true);
+    this.handleScroll();
+    this.handleResize();
+  },
+
+  // Handlers
+
+  handleScroll(e) {
+    this.setState({ innerWidth: innerWidth < 840 ? '100%' : '70%' });
+  },
+
+  handleResize(e) {
+    const { refs } = this;
+    _.zipObject(_.keys(refs), _.map(refs, r => r.offsetTop));
+    this.setState(_.zipObject(_.keys(refs), _.map(refs, r => r.offsetTop)));
+  },
+
   render() {
-    const { styles, texts } = this;
+    const { styles, texts, props: { innerWidth } } = this;
+
     return (
-      <div>
+      <div ref='master' onScroll={this.handleScroll}>
 
-        <div {...styles.topCard}>
-        	<div {...styles.topCardContent}>{texts.topCardText}</div>
-        </div>
+        <Paper zDepth={2} rounded={false} {...styles.topCard}>
+          <img src='logo-full-white.png' style={{ height: '135px' }}/>
+        	<div {...styles.topCardContent}>{texts.block1.text}</div>
+        </Paper>
 
-        <div {...styles.cardWide}>
-          <div className='mdl-card__title'>
-            <h2 className='mdl-card__title-text'>{texts.block1.title}</h2>
+        <Paper zDepth={0} rounded={false} {...styles.cardWide1} ref='first'>
+          <div {...styles.grid} >
+            {_.map(texts.block1.contents, ({ title, text, img }) =>
+              <div {...styles.cell} key={title}>
+                <Card style={{ height: '100%' }} >
+                  <CardMedia
+                    overlay={<CardTitle title={title} />} >
+                    <img src={img} />
+                  </CardMedia>
+                  <CardText>
+                    <p style={{ fontSize: '18px' }}>{text}</p>
+                  </CardText>
+                </Card>
+              </div>
+            )}
           </div>
-          <div className='mdl-card__supporting-text'>
+          {/* <div className='mdl-card__supporting-text'>
             <p><b>{texts.block1.text}</b></p>
             {_.map(texts.block1.contents, ({ title, text }) => [
               <h4 className='mdl-card__title-text' {...styles.secondaryTitle}>{title}</h4>,
               <p>{text}</p>,
             ])}
-          </div>
-        </div>
+          </div> */}
+        </Paper>
 
-        <div {...styles.middleCard}>
+        <Paper zDepth={2} rounded={false} {...styles.middleCard} ref='second'>
           <div {...styles.middleCardTitle}>
-            <h2 className='mdl-card__title-text'>{texts.block2.title}</h2>
+            <button style={{ backgroundColor: '#FF9800' }}
+              className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+            <h2 className='mdl-card__title-text' style={{ fontSize: '25px' }}>{texts.block2.title}</h2>
+            </button>
           </div>
-          <div className='mdl-card__supporting-text'>
+          <GridList
+            cellHeight={120}
+            cols={3}
+            style={{ width: innerWidth < 840 ? '100%' : '70%',
+              overflowY: 'auto',
+              margin: '0 auto',
+            }}>
             {_.map(texts.block2.list, ({ text, items }) => [
-              <Subheader key={text}><h4 {...styles.secondaryTitle}>{text}</h4></Subheader>,
+              <Subheader><h4 {...styles.secondaryTitle}><ListItem
+                disabled={true}
+                leftAvatar={
+                  <Avatar icon={<FontIcon className='material-icons'>gavel</FontIcon>} />
+                }>
+                {text}</ListItem></h4></Subheader>,
               ..._.map(items, (i, index) =>
-                <ListItem key={`${text}-${index}`} secondaryText={i} disabled={true}
-                  leftIcon={<FontIcon className='material-icons'>gavel</FontIcon>} />),
-              <Divider />,
+                <GridTile key={i} >
+                <div className="mdl-card mdl-shadow--2dp" style={{ padding: '14px', width: '100%', background: '#00796B', minHeight: '118px' }}>
+                    <h2 className='mdl-card__title-text' style={{ color: 'white', fontSize: '18px', marginTop: '0px' }}>{i}</h2>
+                </div>
+                </GridTile>),
             ])}
-          </div>
-        </div>
+          </GridList>
+        </Paper>
+        <Contact />
 
       </div>
     );

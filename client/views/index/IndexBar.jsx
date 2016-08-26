@@ -27,12 +27,13 @@ const IndexBar = React.createClass({
       cursor: 'pointer',
     },
     bar: {
-      boxShadow: 'none',
+      // boxShadow: 'none',
+      position: 'fixed',
     },
   },
 
   getInitialState() {
-    return { windowHeight: window.innerHeight };
+    return { windowHeight: window.innerHeight, innerWidth: innerWidth };
   },
 
   // lifecycle
@@ -44,6 +45,7 @@ const IndexBar = React.createClass({
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     $(document).ready(() => {
+      this.handleResize();
       const LinkTest = {
         externalLinks() {
           $('a[href^=http]').click(() => {
@@ -64,44 +66,50 @@ const IndexBar = React.createClass({
   },
 
   handleResize(e) {
-    this.setState({ innerHeight: window.innerHeight });
+    this.setState({ innerHeight: window.innerHeight, innerWidth: innerWidth });
   },
 
   // Handlers
 
   render() {
-    const { styles, links, props: { content, tab }, state: { innerHeight } } = this;
+    const { styles, links, props: { content, tab }, state: { innerHeight }, state } = this;
+    console.log(innerHeight);
     const styleContent = {
       className: 'mdl-layout__content',
       ref: 'newLink',
       style: {
+        overflow: 'auto',
         width: '100%',
-        minHeight: innerHeight - 241,
+        marginTop: '64px',
+        minHeight: (innerHeight || 0) - 241,
+        maxHeight: (innerHeight || 0) - 64,
       },
     };
     return (
-      <div>
-        <AppBar
-          style={styles.bar}
-          iconElementLeft={
-            <IconButton onTouchTap={() => FlowRouter.go('Home')}>
-              <NavigationHome />
-            </IconButton>}
-          title={<span style={styles.title}>sQuinto</span>}
-        />
-        <Tabs value={tab} onChange={this.handleTabChange}>
-          {_.map(links, ({ label, icon }, k) =>
-            <Tab
-              icon={<FontIcon className='material-icons'>{icon}</FontIcon>}
-              value={k}
-              key={k}
-              label={label}
-            />)}
-        </Tabs>
+      <div >
+        <header>
+
+          <title>sQuinto - Advocacia empresarial</title>
+          <meta charSet='UTF-8' />
+          <link rel='icon' href='/icons/squinto/mipmap-xhdpi/ic_launcher.png'/>
+          <meta name='description' content='sQuinto Advocacia Empresarial' />
+          <meta name='keywords' content='advocacia, empresarial, direito, jurídico' />
+          <meta name='content-language' content='pt-br' />
+          <AppBar
+            style={styles.bar}
+            zDepth={4}
+            iconElementLeft={
+              <IconButton onTouchTap={() => FlowRouter.go('Home')}>
+                <NavigationHome />
+              </IconButton>}
+            title={<span style={styles.title}>sQuinto</span>}
+          />
+
+        </header>
         <main {...styleContent}>
-          {content}
+          {content(state)}
+          <Footer />
         </main>
-        <Footer />
       </div>
     );
   },

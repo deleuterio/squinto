@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'react-mounter';
 import MainLayout from '../index.jsx';
-import WelcomeComponent from '../views/home.jsx';
 import Home from '../views/Home/index.jsx';
 import Blog from '../views/Blog/index.jsx';
 import Process from '../views/Process/index.jsx';
@@ -19,7 +18,9 @@ FlowRouter.route('/home', {
   action() {
     mount(MainLayout, {
       tab: 'home',
-      content: <Home />,
+      content(props) {
+        return <Home {...props} />;
+      },
     });
   },
 

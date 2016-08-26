@@ -2,4 +2,6 @@
 .git
 node_modules/
 secrets.json
+settings.json
 mup.json
+mup.js
