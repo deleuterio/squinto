@@ -10,6 +10,10 @@ FlowRouter.route('/', {
   action() {
     mount(MainLayout, {
       tab: 'home',
+      crumbs: {
+        title: 'sQuinto',
+        content: [],
+      },
       content(props) {
         return <Home {...props} />;
       },
@@ -30,7 +34,10 @@ FlowRouter.route('/home', {
 FlowRouter.route('/artigos', {
   action() {
     mount(MainLayout, {
-      crumbs: [{ label: 'Artigos', path: FlowRouter.path('Articles') }],
+      crumbs: {
+        title: 'Artigos',
+        content: [{ label: 'sQuinto', path: FlowRouter.path('Home') }],
+      },
       content(props) {
         return <Articles {...props} />;
       },
