@@ -16,10 +16,6 @@ const IndexBar = React.createClass({
       label: 'Contato',
       icon: 'call',
     },
-    process: {
-      label: 'Processos',
-      icon: 'search',
-    },
   },
 
   styles: {
@@ -27,12 +23,12 @@ const IndexBar = React.createClass({
       cursor: 'pointer',
     },
     bar: {
-      boxShadow: 'none',
+      position: 'fixed',
     },
   },
 
   getInitialState() {
-    return { windowHeight: window.innerHeight };
+    return { windowHeight: window.innerHeight, innerWidth: window.innerWidth };
   },
 
   // lifecycle
@@ -44,6 +40,7 @@ const IndexBar = React.createClass({
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     $(document).ready(() => {
+      this.handleResize();
       const LinkTest = {
         externalLinks() {
           $('a[href^=http]').click(() => {
@@ -59,49 +56,64 @@ const IndexBar = React.createClass({
 
   // Handlers
 
-  handleTabChange(key) {
-    FlowRouter.go(_.capitalize(key));
+  handleResize(e) {
+    this.setState({ innerHeight: window.innerHeight, innerWidth: innerWidth });
   },
 
-  handleResize(e) {
-    this.setState({ innerHeight: window.innerHeight });
+  getTitle(crumbs) {
+    const { innerWidth } = this.state;
+    if (innerWidth < 840) return 'sQuinto';
+
+    return (
+      <span>
+      <span>sQuinto</span>
+        {_.flatten(_.map(crumbs, (c, i) => [
+          <span key={`sep${i}`} style={{ marginLeft: 5, marginRight: 5 }}>/</span>,
+          <span key={`crumb${i}`} onClick={()=>FlowRouter.go(c.path)} style={{ cursor: 'pointer' }}>{c.label}</span>,
+        ]))}
+      </span>
+    );
   },
 
   // Handlers
 
   render() {
-    const { styles, links, props: { content, tab }, state: { innerHeight } } = this;
+    const { styles, links, props: { content, crumbs }, state: { innerHeight }, state } = this;
     const styleContent = {
       className: 'mdl-layout__content',
       ref: 'newLink',
       style: {
+        overflow: 'auto',
         width: '100%',
-        minHeight: innerHeight - 241,
+        marginTop: '64px',
+        maxHeight: (innerHeight || 0) - 64,
       },
     };
     return (
-      <div>
-        <AppBar
-          style={styles.bar}
-          iconElementLeft={
-            <IconButton onTouchTap={() => FlowRouter.go('Home')}>
-              <NavigationHome />
-            </IconButton>}
-          title={<span style={styles.title}>sQuinto</span>}
-        />
-        <Tabs value={tab} onChange={this.handleTabChange}>
-          {_.map(links, ({ label, icon }, k) =>
-            <Tab
-              icon={<FontIcon className='material-icons'>{icon}</FontIcon>}
-              value={k}
-              key={k}
-              label={label}
-            />)}
-        </Tabs>
+      <div >
+        <header>
+
+          <title>sQuinto - Advocacia empresarial</title>
+          <meta charSet='UTF-8' />
+          <link rel='icon' href='/icons/squinto/mipmap-xhdpi/ic_launcher.png'/>
+          <meta name='description' content='sQuinto Advocacia Empresarial' />
+          <meta name='keywords' content='advocacia, empresarial, direito, jurídico' />
+          <meta name='content-language' content='pt-br' />
+          <AppBar
+            style={styles.bar}
+            zDepth={4}
+            iconElementLeft={
+              <IconButton onTouchTap={() => FlowRouter.go('Home')}>
+                <NavigationHome />
+              </IconButton>}
+            title={this.getTitle(crumbs)}
+          />
+
+        </header>
         <main {...styleContent}>
-          {content}
+          <div style={{ minHeight: (innerHeight || 0) - 164 }}>{content(state)}</div>
+          <Footer />
         </main>
-        <Footer />
       </div>
     );
   },

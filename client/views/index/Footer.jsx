@@ -36,8 +36,6 @@ const Footer = React.createClass({
             <ul className='mdl-mini-footer__link-list'>
               <li><a href={FlowRouter.path('Home')}>Home</a></li>
               <li><a href={FlowRouter.path('Blog')}>Artigos</a></li>
-              <li><a href={FlowRouter.path('Contact')}>Contato</a></li>
-              <li><a href={FlowRouter.path('Process')}>Processos</a></li>
             </ul>
         </div>
       </footer>
