@@ -16,10 +16,6 @@ const IndexBar = React.createClass({
       label: 'Contato',
       icon: 'call',
     },
-    process: {
-      label: 'Processos',
-      icon: 'search',
-    },
   },
 
   styles: {
@@ -27,13 +23,12 @@ const IndexBar = React.createClass({
       cursor: 'pointer',
     },
     bar: {
-      // boxShadow: 'none',
       position: 'fixed',
     },
   },
 
   getInitialState() {
-    return { windowHeight: window.innerHeight, innerWidth: innerWidth };
+    return { windowHeight: window.innerHeight, innerWidth: window.innerWidth };
   },
 
   // lifecycle
@@ -61,19 +56,29 @@ const IndexBar = React.createClass({
 
   // Handlers
 
-  handleTabChange(key) {
-    FlowRouter.go(_.capitalize(key));
-  },
-
   handleResize(e) {
     this.setState({ innerHeight: window.innerHeight, innerWidth: innerWidth });
+  },
+
+  getTitle(crumbs) {
+    const { innerWidth } = this.state;
+    if (innerWidth < 840) return 'sQuinto';
+
+    return (
+      <span>
+      <span>sQuinto</span>
+        {_.flatten(_.map(crumbs, (c, i) => [
+          <span key={`sep${i}`} style={{ marginLeft: 5, marginRight: 5 }}>/</span>,
+          <span key={`crumb${i}`} onClick={()=>FlowRouter.go(c.path)} style={{ cursor: 'pointer' }}>{c.label}</span>,
+        ]))}
+      </span>
+    );
   },
 
   // Handlers
 
   render() {
-    const { styles, links, props: { content, tab }, state: { innerHeight }, state } = this;
-    console.log(innerHeight);
+    const { styles, links, props: { content, crumbs }, state: { innerHeight }, state } = this;
     const styleContent = {
       className: 'mdl-layout__content',
       ref: 'newLink',
@@ -81,7 +86,6 @@ const IndexBar = React.createClass({
         overflow: 'auto',
         width: '100%',
         marginTop: '64px',
-        minHeight: (innerHeight || 0) - 241,
         maxHeight: (innerHeight || 0) - 64,
       },
     };
@@ -102,12 +106,12 @@ const IndexBar = React.createClass({
               <IconButton onTouchTap={() => FlowRouter.go('Home')}>
                 <NavigationHome />
               </IconButton>}
-            title={<span style={styles.title}>sQuinto</span>}
+            title={this.getTitle(crumbs)}
           />
 
         </header>
         <main {...styleContent}>
-          {content(state)}
+          <div style={{ minHeight: (innerHeight || 0) - 164 }}>{content(state)}</div>
           <Footer />
         </main>
       </div>

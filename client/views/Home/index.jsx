@@ -8,7 +8,8 @@ import { List, ListItem, Divider, CardTitle, FontIcon, IconButton, Card,
   Paper,
   Avatar, } from 'material-ui';
 import NavigationHome from 'material-ui/svg-icons/action/home';
-import Contact from '../Contact/index.jsx';
+import Contact from './Contact/index.jsx';
+import Articles from './Articles/index.jsx';
 
 const Home = React.createClass({
 
@@ -278,6 +279,7 @@ const Home = React.createClass({
             ])}
           </GridList>
         </Paper>
+        <Articles />
         <Contact />
 
       </div>
