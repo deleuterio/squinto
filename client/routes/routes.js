@@ -3,8 +3,6 @@ import { mount } from 'react-mounter';
 import MainLayout from '../index.jsx';
 import Home from '../views/Home/index.jsx';
 import Articles from '../views/Articles/index.jsx';
-import Process from '../views/Process/index.jsx';
-import Contact from '../views/Contact/index.jsx';
 
 // Home page
 
@@ -40,30 +38,4 @@ FlowRouter.route('/artigos', {
   },
 
   name: 'Articles',
-});
-
-// Location
-
-FlowRouter.route('/Contato', {
-  action() {
-    mount(MainLayout, {
-      tab: 'contact',
-      content: <Contact />,
-    });
-  },
-
-  name: 'Contact',
-});
-
-// Process
-
-FlowRouter.route('/processos', {
-  action() {
-    mount(MainLayout, {
-      tab: 'process',
-      content: <Process />,
-    });
-  },
-
-  name: 'Process',
 });

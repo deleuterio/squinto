@@ -31,7 +31,7 @@ const Contact = React.createClass({
   render() {
     const { styles, mapUrl } = this;
     return (
-      <Paper zDepth={0} rounded={false} {...styles.middleCard}>
+      <Paper zDepth={2} rounded={false} {...styles.middleCard}>
         <div className='mdl-grid' >
           <div className="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle	mdl-layout--small-screen-only">
             <ul className="mdl-list">
