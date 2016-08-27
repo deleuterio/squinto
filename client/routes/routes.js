@@ -2,19 +2,13 @@ import React from 'react';
 import { mount } from 'react-mounter';
 import MainLayout from '../index.jsx';
 import Home from '../views/Home/index.jsx';
-import Blog from '../views/Blog/index.jsx';
+import Articles from '../views/Articles/index.jsx';
 import Process from '../views/Process/index.jsx';
 import Contact from '../views/Contact/index.jsx';
 
 // Home page
 
 FlowRouter.route('/', {
-  action() {
-    FlowRouter.go('Home');
-  },
-});
-
-FlowRouter.route('/home', {
   action() {
     mount(MainLayout, {
       tab: 'home',
@@ -27,17 +21,25 @@ FlowRouter.route('/home', {
   name: 'Home',
 });
 
-// Blog
+FlowRouter.route('/home', {
+  action() {
+    FlowRouter.go('Home');
+  },
+});
+
+// Articles
 
 FlowRouter.route('/artigos', {
   action() {
     mount(MainLayout, {
-      tab: 'blog',
-      content: <Blog />,
+      crumbs: [{ label: 'Artigos', path: FlowRouter.path('Articles') }],
+      content(props) {
+        return <Articles {...props} />;
+      },
     });
   },
 
-  name: 'Blog',
+  name: 'Articles',
 });
 
 // Location
