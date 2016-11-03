@@ -21,8 +21,9 @@ const Header = React.createClass({
 
   metaTags: [
     { charSet: 'UTF-8' },
-    { name: 'description', content: 'sQuinto Advocacia Empresarial' },
-    { name: 'keywords', content: 'advocacia, empresarial, direito, jurídico' },
+    { name: 'description', content: 'sQuinto Advocacia Empresarial - Somos uma empresa de advocacia com atendimento personalizado e atuação em todas as áreas do direito direcionado às empresas.' },
+    { name: 'keywords', content: 'advocacia, empresarial, direito, jurídico, escritorio' },
+    { name: 'robots', content: 'index, follow' },
     { name: 'content-language', content: 'pt-br' },
   ],
 
