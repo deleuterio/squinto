@@ -3,6 +3,7 @@ import { FontIcon, IconButton,
   GridList,
   GridTile,
   Paper, } from 'material-ui';
+import ActingModal from './Modal.jsx';
 
 const Acting = React.createClass({
 
@@ -111,6 +112,21 @@ const Acting = React.createClass({
     },
   },
 
+  // lifecycle
+
+  getInitialState() {
+    return { open: false, items: null, text: null };
+  },
+
+  // handlers
+
+  handleModal({ items, text }) {
+    const { open } = this.state;
+    this.setState({ open: !open, items, text });
+  },
+
+  // render
+
   render() {
     const { styles, texts, props: { innerWidth } } = this;
 
@@ -118,7 +134,7 @@ const Acting = React.createClass({
       <Paper zDepth={2} rounded={false} {...styles.middleCard}>
         <div {...styles.middleCardTitle}>
           <button style={{ backgroundColor: '#FF9800' }}
-            className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+            className='mdl-button mdl-js-button mdl-button--raised mdl-button--accent'>
             <h2 className='mdl-card__title-text' style={{ fontSize: '25px' }}>
               {texts.block2.title}</h2>
           </button>
@@ -130,12 +146,21 @@ const Acting = React.createClass({
             overflowY: 'auto',
             margin: '0 auto',
           }}>
-          {_.map(texts.block2.list, ({ text, img }) =>
-              <GridTile key={text} title={text}>
+          {_.map(texts.block2.list, ({ text, img, items }) =>
+              <GridTile key={text} title={text}
+                onTouchTap={() => this.handleModal({ text, items })}
+                style={{ cursor: 'pointer' }}
+                actionIcon={<IconButton>
+                    <FontIcon className='material-icons' color='white'>gavel</FontIcon>
+                  </IconButton>}
+                actionPosition='left'
+                titlePosition='top'
+                titleBackground='linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)'>
                 <img src={img} />
               </GridTile>
           )}
         </GridList>
+        <ActingModal {...this.state} innerWidth={innerWidth} handleClose={this.handleModal} />
       </Paper>
     );
   },
