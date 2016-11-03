@@ -78,6 +78,7 @@ const IndexBar = React.createClass({
           <div {..._.bind(styles.content, this)()} >
             {content(this.state)}
           </div>
+          <Footer {...this.props} {...this.state} />
         </main>
       </div>
     );
