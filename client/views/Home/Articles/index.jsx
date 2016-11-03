@@ -16,7 +16,7 @@ const Articles = React.createClass({
       className: 'mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone',
     },
     seeMore: {
-      primary: true,
+      color: true,
       label: 'Ver mais',
     },
     centerCell(element) {
@@ -95,10 +95,9 @@ const Articles = React.createClass({
             ..._.map(posts, p => <div {...styles.cell} key={_.get(p, 'id')}><Card {...p} /></div>),
             <div className='mdl-cell mdl-cell--4-col mdl-cell--8-offset' key='more'>
               <FlatButton href={FlowRouter.path('Articles')}
-                secondary={true}
-                icon={<FontIcon className="material-icons" style={{ color: '#ff9800' }}>
+                icon={<FontIcon className="material-icons" style={{ color: 'white' }}>
                   more</FontIcon>}
-                labelStyle={{ fontSize: '25px' }}
+                labelStyle={{ fontSize: '25px', color: 'white' }}
                 label='Ver mais'/>
             </div>,
           ]}

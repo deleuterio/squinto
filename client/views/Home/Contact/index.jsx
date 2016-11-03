@@ -15,7 +15,7 @@ const Contact = React.createClass({
     middleCard: {
       style: {
         width: 'auto',
-        backgroundColor: '#A7FFEB',
+        backgroundColor: 'white',
       },
     },
     goMap: {
@@ -33,45 +33,45 @@ const Contact = React.createClass({
     return (
       <Paper zDepth={2} rounded={false} {...styles.middleCard}>
         <div className='mdl-grid' >
-          <div className="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle	mdl-layout--small-screen-only">
-            <ul className="mdl-list">
-              <li className="mdl-list__item">
+          <div className='mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle	mdl-layout--small-screen-only'>
+            <ul className='mdl-list'>
+              <li className='mdl-list__item'>
                 <button style={{ backgroundColor: '#FF9800' }}
-                  className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                  className='mdl-button mdl-js-button mdl-button--raised mdl-button--accent'>
                 <h2 className='mdl-card__title-text' style={{ fontSize: '25px' }}>Contato</h2>
                 </button>
               </li>
-              <li className="mdl-list__item">
-                <span className="mdl-list__item-primary-content">
-                <i className="material-icons mdl-list__item-icon" style={{ color: '#00796b' }}>phone</i>
+              <li className='mdl-list__item'>
+                <span className='mdl-list__item-primary-content'>
+                <i className='material-icons mdl-list__item-icon' style={{ color: '#00796b' }}>phone</i>
                 +55 (31) 3286-7041
               </span>
               </li>
-              <li className="mdl-list__item">
-                <span className="mdl-list__item-primary-content">
-                <i className="material-icons mdl-list__item-icon" style={{ color: '#00796b' }}>contact_mail</i>
+              <li className='mdl-list__item'>
+                <span className='mdl-list__item-primary-content'>
+                <i className='material-icons mdl-list__item-icon' style={{ color: '#00796b' }}>contact_mail</i>
                 <a href='mailto:squinto@squinto.adv.br?Subject=Contato'
                   style={{ marginLeft: '10px' }} >
                 squinto@squinto.adv.br</a>
               </span>
               </li>
-              <li className="mdl-list__item">
-                <span className="mdl-list__item-primary-content">
-                <i className="material-icons mdl-list__item-icon" style={{ color: '#00796b' }}>contact_mail</i>
+              <li className='mdl-list__item'>
+                <span className='mdl-list__item-primary-content'>
+                <i className='material-icons mdl-list__item-icon' style={{ color: '#00796b' }}>contact_mail</i>
                 <a href='mailto:diretoria@squinto.adv.br?Subject=Contato'
                   style={{ marginLeft: '10px' }} >
                 diretoria@squinto.adv.br</a>
               </span>
               </li>
-              <li className="mdl-list__item">
-                <span className="mdl-list__item-primary-content">
-                <i className="material-icons mdl-list__item-icon" style={{ color: '#00796b' }}>place</i>
+              <li className='mdl-list__item'>
+                <span className='mdl-list__item-primary-content'>
+                <i className='material-icons mdl-list__item-icon' style={{ color: '#00796b' }}>place</i>
                 Rua Ministro Orozimbo Nonato, 102 - Edifício Icon- Bloco A, Conj. 2208 e 2210
               </span>
               </li>
             </ul>
           </div>
-          <div className="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle	">
+          <div className='mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle	'>
             <Card>
               {/* <CardText>
                 Rua Ministro Orozimbo Nonato, 102 - Edifício Icon- Bloco A, Conj. 2208 e 2210<br/>
@@ -80,7 +80,7 @@ const Contact = React.createClass({
                 CEP: 34000-000<br/>
               </CardText> */}
               <CardMedia >
-                <div dangerouslySetInnerHTML={_.zipObject(['__html'], ['<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14998.255057277041!2d-43.947147!3d-19.98484!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3860dab80e889cb2!2sCondom%C3%ADnio+Icon!5e0!3m2!1spt-BR!2sbr!4v1472219802068" height="400"  frameborder="0" style="border:0; width:100%" allowfullscreen></iframe>'])} />
+                <div dangerouslySetInnerHTML={_.zipObject(['__html'], ["<iframe src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14998.255057277041!2d-43.947147!3d-19.98484!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3860dab80e889cb2!2sCondom%C3%ADnio+Icon!5e0!3m2!1spt-BR!2sbr!4v1472219802068' height='400'  frameborder='0' style='border:0; width:100%' allowfullscreen></iframe>"])} />
                 {/* <iframe src={mapUrl} frameBorder='0' style={{ heigth: '500px' }} allowFullScreen/> */}
               </CardMedia>
               <CardActions>
