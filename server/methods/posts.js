@@ -1,9 +1,10 @@
 import tumblr from 'tumblr.js';
+const env = process.env.NODE_ENV;
 const { consumer_key,
   url: blogUrl,
   consumer_secret,
   token,
-  token_secret, } = Meteor.settings.credentials.tumblr;
+  token_secret, } = Meteor.settings.credentials.tumblr[env];
 const client = tumblr.createClient({ consumer_key, consumer_secret, token, token_secret });
 const Future = require('fibers/future');
 
