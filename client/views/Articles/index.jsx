@@ -111,7 +111,7 @@ const Blog = React.createClass({
                 <Card {...p} action={this.handlePostView}/>
               </div>
             )}
-            {wait ? this.styles.centerCell(<CircularProgress size={1.5} />) :
+            {wait ? this.styles.centerCell(<CircularProgress size={5} />) :
             posts.length === total ? null :
             this.styles.centerCell(<RaisedButton {...styles.seeMore} onTouchTap={this.getPosts}/>)}
            </div>

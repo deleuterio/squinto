@@ -82,16 +82,24 @@ const Articles = React.createClass({
       _.isNull(posts) ? <LinearProgress mode='indeterminate' /> :
       <Paper zDepth={0} rounded={false} style={{ backgroundColor: '#00796b' }} {...styles.grid} >
         <div className='mdl-cell mdl-cell--12-col'>
-          <button style={{ backgroundColor: '#FF9800' }}
-            className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
-          <h2 className='mdl-card__title-text' style={{ fontSize: '25px' }}>Artigos</h2>
-          </button>
+          <a href={FlowRouter.path('Articles')} >
+            <button style={{ backgroundColor: '#FF9800' }}
+              className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+            <h2 className='mdl-card__title-text' style={{ fontSize: '25px' }}>Artigos</h2>
+            </button>
+          </a>
         </div>
-        {_.isEmpty(posts) ? styles.centerCell(<h4 style={{ color: 'white' }}>Nenhuma artigo publicado...</h4>) :
+        {_.isEmpty(posts) ?
+          styles.centerCell(<h4 style={{ color: 'white' }}>Nenhuma artigo publicado...</h4>) :
           [
             ..._.map(posts, p => <div {...styles.cell} key={_.get(p, 'id')}><Card {...p} /></div>),
-            <div className='mdl-cell mdl-cell--4-col mdl-cell--8-offset'>
-              <FlatButton href={FlowRouter.path('Articles')} secondary={true} icon={<FontIcon className="material-icons" style={{ color: '#ff9800' }}>more</FontIcon>} labelStyle={{ fontSize: '25px' }} label='Ver mais'/>
+            <div className='mdl-cell mdl-cell--4-col mdl-cell--8-offset' key='more'>
+              <FlatButton href={FlowRouter.path('Articles')}
+                secondary={true}
+                icon={<FontIcon className="material-icons" style={{ color: '#ff9800' }}>
+                  more</FontIcon>}
+                labelStyle={{ fontSize: '25px' }}
+                label='Ver mais'/>
             </div>,
           ]}
       </Paper>
