@@ -49,8 +49,6 @@ const Home = React.createClass({
       className: 'mdl-card__title card-wide-image-home',
       style: {
         color: '#000',
-        height: '176px',
-        background: 'url(\'./assets/stf3.jpg\') center / cover',
       },
     },
     cardWide: {
@@ -108,6 +106,7 @@ const Home = React.createClass({
       list: [
         {
           text: 'Consultoria',
+          img: '/assets/area1.jpg',
           items: [
             'Contratos com fornecedores',
             'Contratos com clientes',
@@ -118,6 +117,7 @@ const Home = React.createClass({
           ],
         }, {
           text: 'Tributário',
+          img: '/assets/area2.jpeg',
           items: [
             'Exceções de pre executividade',
             'Anulatórias de débitos',
@@ -133,6 +133,7 @@ const Home = React.createClass({
           ],
         }, {
           text: 'Trabalhista',
+          img: '/assets/area3.jpg',
           items: [
             'Defesas em reclamatórias',
             'Ações consignatórias',
@@ -151,6 +152,7 @@ const Home = React.createClass({
           ],
         }, {
           text: 'Cível',
+          img: '/assets/area4.jpg',
           items: [
             'Consignatórias contra fornecedores',
             'Anulatórias de débitos (cobrança irregular)',
@@ -162,6 +164,7 @@ const Home = React.createClass({
           ],
         }, {
           text: 'Societário - Empresarial',
+          img: '/assets/area5.jpg',
           items: [
             'Criação de SCP',
             'Criação SPE',
@@ -177,6 +180,7 @@ const Home = React.createClass({
           ],
         }, {
           text: 'Criminal',
+          img: '/assets/area6.jpeg',
           items: ['Defesa ação penal em crimes de natureza tributária'],
         },
       ],
@@ -184,27 +188,7 @@ const Home = React.createClass({
   },
 
   getInitialState() {
-    return { positions: {}, innerWidth: innerWidth < 840 ? '100%' : '70%' };
-  },
-
-  // lifecycle
-
-  componentWillUnmount() {
-    // window.removeEventListener('resize', this.handleResize);
-    // window.removeEventListener('resize', this.handleScroll);
-  },
-
-  componentDidMount() {
-    // window.addEventListener('resize', this.handleResize);
-    // window.addEventListener('scroll', this.handleScroll, true);
-    this.handleScroll();
-    this.handleResize();
-  },
-
-  // Handlers
-
-  handleScroll(e) {
-    this.setState({ innerWidth: innerWidth < 840 ? '100%' : '70%' });
+    return { positions: {} };
   },
 
   handleResize(e) {
@@ -215,9 +199,10 @@ const Home = React.createClass({
 
   render() {
     const { styles, texts, props: { innerWidth } } = this;
+    console.log(innerWidth);
 
     return (
-      <div ref='master' onScroll={this.handleScroll}>
+      <div ref='master'>
 
         <Paper zDepth={2} rounded={false} {...styles.topCard}>
           <img src='logo-full-white.png' style={{ height: '135px' }}/>
@@ -240,13 +225,6 @@ const Home = React.createClass({
               </div>
             )}
           </div>
-          {/* <div className='mdl-card__supporting-text'>
-            <p><b>{texts.block1.text}</b></p>
-            {_.map(texts.block1.contents, ({ title, text }) => [
-              <h4 className='mdl-card__title-text' {...styles.secondaryTitle}>{title}</h4>,
-              <p>{text}</p>,
-            ])}
-          </div> */}
         </Paper>
 
         <Paper zDepth={2} rounded={false} {...styles.middleCard} ref='second'>
@@ -257,26 +235,17 @@ const Home = React.createClass({
             </button>
           </div>
           <GridList
-            cellHeight={120}
-            cols={3}
-            style={{ width: innerWidth < 840 ? '100%' : '70%',
+            cellHeight={200}
+            cols={innerWidth == 'small' ? 1 : 2}
+            style={{ width: innerWidth == 'small' ? '100%' : '70%',
               overflowY: 'auto',
               margin: '0 auto',
             }}>
-            {_.map(texts.block2.list, ({ text, items }) => [
-              <Subheader><h4 {...styles.secondaryTitle}><ListItem
-                disabled={true}
-                leftAvatar={
-                  <Avatar icon={<FontIcon className='material-icons'>gavel</FontIcon>} />
-                }>
-                {text}</ListItem></h4></Subheader>,
-              ..._.map(items, (i, index) =>
-                <GridTile key={i} >
-                <div className="mdl-card mdl-shadow--2dp" style={{ padding: '14px', width: '100%', background: '#00796B', minHeight: '118px' }}>
-                    <h2 className='mdl-card__title-text' style={{ color: 'white', fontSize: '18px', marginTop: '0px' }}>{i}</h2>
-                </div>
-                </GridTile>),
-            ])}
+            {_.map(texts.block2.list, ({ text, img }) =>
+                <GridTile key={text} title={text}>
+                  <img src={img} />
+                </GridTile>
+            )}
           </GridList>
         </Paper>
         <Articles />

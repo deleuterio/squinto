@@ -1,5 +1,4 @@
 import React from 'react';
-import { AppBar, Tabs, Tab, FontIcon, IconButton } from 'material-ui';
 import Footer from './Footer.jsx';
 import Header from './Header.jsx';
 
@@ -79,7 +78,6 @@ const IndexBar = React.createClass({
           <div {..._.bind(styles.content, this)()} >
             {content(this.state)}
           </div>
-          <Footer />
         </main>
       </div>
     );
